@@ -55,25 +55,20 @@ body {
 }
 
 /* Navigation */
-.nav-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.site-nav {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.nav-list a {
+.site-nav a {
   text-decoration: none;
   color: #111;
   font-size: 0.95rem;
 }
 
-.nav-list a[aria-current="page"] {
+.site-nav a[aria-current="page"] {
   font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 0.2rem;
 }
 
 /* Main content */
