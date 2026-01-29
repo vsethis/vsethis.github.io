@@ -1,14 +1,51 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-  </style>
-</head>
-<body>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualizations</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">VS</span>
+        </div>
+
+        <nav aria-label="Main navigation" class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#experience">Experience</a>
+          <a class="selected" href="visualizations.html" aria-current="page"
+            >Visualizations</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="container">
+        <!-- Visualization 1 -->
+        <section aria-labelledby="viz1-title">
+          <h2 id="viz1-title">Tint Map Visualization</h2>
+          <div id="viz-chart" class="viz-frame"></div>
+        </section>
+
+        <!-- Visualization 2 -->
+        <section aria-labelledby="viz2-title">
+          <h2 id="viz2-title">Creative SVG Art</h2>
+          <button id="regen-art" type="button">Regenerate</button>
+          <div id="viz-art" class="viz-frame"></div>
+        </section>
+      </div>
+    </main>
+
+    <script src="vis.js"></script>
+  </body>
 </html>
+
