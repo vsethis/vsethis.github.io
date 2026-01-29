@@ -21,9 +21,7 @@
           <a href="index.html#education">Education</a>
           <a href="index.html#skills">Skills</a>
           <a href="index.html#experience">Experience</a>
-          <a class="selected" href="visualizations.html" aria-current="page"
-            >Visualizations</a
-          >
+          <a class="selected" href="visualizations.html" aria-current="page">Visualizations</a>
         </nav>
       </div>
     </header>
@@ -32,13 +30,26 @@
       <div class="container">
         <!-- Visualization 1 -->
         <section aria-labelledby="viz1-title">
-          <h2 id="viz1-title">Tint Map Visualization</h2>
+          <h2 id="viz1-title">Interactive Tint Preview (VLT%)</h2>
+          <p>Select a VLT option to preview how window darkness changes.</p>
+
+          <div class="tint-controls" aria-label="Tint options">
+            <button type="button" class="tint-btn" data-vlt="5">5%</button>
+            <button type="button" class="tint-btn" data-vlt="20">20%</button>
+            <button type="button" class="tint-btn" data-vlt="35">35%</button>
+            <button type="button" class="tint-btn" data-vlt="50">50%</button>
+          </div>
+
+          <p id="tint-status" class="tint-status">Selected: 20% VLT</p>
+
           <div id="viz-chart" class="viz-frame"></div>
         </section>
 
         <!-- Visualization 2 -->
         <section aria-labelledby="viz2-title">
           <h2 id="viz2-title">Creative SVG Art</h2>
+          <p>Generative pattern inspired by light and glass. Click to regenerate.</p>
+
           <button id="regen-art" type="button">Regenerate</button>
           <div id="viz-art" class="viz-frame"></div>
         </section>
@@ -48,4 +59,3 @@
     <script src="vis.js"></script>
   </body>
 </html>
-

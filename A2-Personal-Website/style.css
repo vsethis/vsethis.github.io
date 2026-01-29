@@ -151,12 +151,25 @@ ul {
   background: #fff;
 }
 
-#regen-art {
+.tint-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   margin-top: 0.5rem;
+}
+
+.tint-btn,
+#regen-art {
   padding: 0.5rem 0.75rem;
   border: 1px solid #ccc;
   background: #fff;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.tint-status {
+  margin-top: 0.75rem;
+  color: #444;
+  font-size: 0.95rem;
 }
 
