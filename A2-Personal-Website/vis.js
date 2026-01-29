@@ -68,7 +68,7 @@ function buildTintCarSvg() {
   addWheel(svg, 210);
   addWheel(svg, 540);
 
-  // Windows (we keep references so we can update them)
+  // Windows 
   const windshield = makeRect(265, 135, 70, 40, 6);
   const frontSide = makeRect(340, 135, 80, 45, 6);
   const rearSide = makeRect(430, 140, 85, 40, 6);
@@ -141,7 +141,7 @@ function tintFill(vlt) {
   return `rgb(${shade}, ${shade}, ${shade})`;
 }
 
-/* ---- Creative SVG art (optional purpose: "light + glass") ---- */
+/* ---- Creative SVG art ---- */
 function drawGenerativeArt() {
   const container = document.getElementById("viz-art");
   if (!container) return;
@@ -160,35 +160,43 @@ function drawGenerativeArt() {
   bg.setAttribute("fill", "#f4f4f4");
   svg.appendChild(bg);
 
-  // “Light streaks” + nodes
-  const bands = 10;
-  for (let i = 0; i < bands; i++) {
-    const x1 = rand(0, width);
-    const y1 = rand(0, height);
-    const x2 = rand(0, width);
-    const y2 = rand(0, height);
+  // Points
+  const points = [];
+  const count = 18;
+
+  for (let i = 0; i < count; i++) {
+    points.push({
+      x: rand(40, width - 40),
+      y: rand(40, height - 40),
+    });
+  }
+
+  // Lines between points
+  for (let i = 0; i < points.length; i++) {
+    const a = points[i];
+    const b = points[(i + 1) % points.length];
 
     const line = ns("line");
-    line.setAttribute("x1", String(x1));
-    line.setAttribute("y1", String(y1));
-    line.setAttribute("x2", String(x2));
-    line.setAttribute("y2", String(y2));
-    line.setAttribute("stroke", "#111");
-    line.setAttribute("stroke-width", String(rand(1, 2)));
-    line.setAttribute("opacity", "0.18");
+    line.setAttribute("x1", String(a.x));
+    line.setAttribute("y1", String(a.y));
+    line.setAttribute("x2", String(b.x));
+    line.setAttribute("y2", String(b.y));
+    line.setAttribute("stroke", "#1f1f1f");
+    line.setAttribute("stroke-width", "1");
+    line.setAttribute("opacity", "0.35");
     svg.appendChild(line);
   }
 
-  const dots = 22;
-  for (let i = 0; i < dots; i++) {
+  // Nodes
+  points.forEach((p) => {
     const c = ns("circle");
-    c.setAttribute("cx", String(rand(30, width - 30)));
-    c.setAttribute("cy", String(rand(30, height - 30)));
-    c.setAttribute("r", String(rand(3, 8)));
-    c.setAttribute("fill", "#111");
-    c.setAttribute("opacity", "0.35");
+    c.setAttribute("cx", String(p.x));
+    c.setAttribute("cy", String(p.y));
+    c.setAttribute("r", String(rand(3, 7)));
+    c.setAttribute("fill", "#1f1f1f");
+    c.setAttribute("opacity", "0.85");
     svg.appendChild(c);
-  }
+  });
 
   container.appendChild(svg);
 }
