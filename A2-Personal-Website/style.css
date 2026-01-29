@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 780px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -78,7 +78,7 @@ body {
 
 /* Main content */
 main {
-  padding: 1.5rem 0 2rem;
+  padding: 3rem 0 2rem;
 }
 
 section {
