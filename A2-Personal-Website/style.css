@@ -90,13 +90,12 @@ section:first-of-type p {
 }
 
 h2 {
-  margin-bottom: 0.25rem;
+  margin: 0 0 0.25rem;
   font-size: 1.8rem;
 }
 
 p {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   max-width: 70ch;
 }
 
