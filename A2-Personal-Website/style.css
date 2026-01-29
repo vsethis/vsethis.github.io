@@ -94,6 +94,10 @@ h2 {
   font-size: 1.8rem;
 }
 
+section:first-of-type p {
+  margin-top: 0.25rem;
+}
+
 p {
   margin: 0.5rem 0;
   max-width: 70ch;
