@@ -450,3 +450,13 @@ section.is-visible {
 .band-dark .contact-line {
   margin: 0.75rem 0;
 }
+
+.site-footer .container {
+  display: flex;
+  justify-content: center;
+}
+
+.site-footer p {
+  margin: 0;
+  letter-spacing: 0.02em;
+}
