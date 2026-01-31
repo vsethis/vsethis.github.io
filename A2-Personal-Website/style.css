@@ -129,8 +129,8 @@ ul {
   border-top: 1px solid var(--border);
   padding: 1rem 0;
   color: var(--muted);
-  font-size: 0.95rem;
   text-align: center;
+  font-size: 0.95rem;
 }
 
 /* Experience section spacing*/
@@ -412,3 +412,116 @@ aside.is-visible,
   }
 }
 
+/* ===== New layout: bands + image/text rows ===== */
+
+.band {
+  padding: 4rem 0;
+}
+
+.band-hero {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.band-light {
+  background: #f5f5f5;
+  border-top: 1px solid #ececec;
+}
+
+.band-dark {
+  background: #1f1f1f;
+  color: #f2f2f2;
+  border-top: 1px solid #2a2a2a;
+}
+
+/* Two-column row */
+.row {
+  display: flex;
+  gap: 2.25rem;
+  align-items: center;
+}
+
+.row-hero {
+  align-items: center;
+}
+
+.media {
+  flex: 0 0 320px;
+}
+
+.content {
+  flex: 1;
+}
+
+/* Hero typography */
+.hero-name {
+  font-size: 2.2rem;
+  margin: 0 0 0.5rem;
+}
+
+.hero-intro {
+  margin: 0;
+  max-width: 65ch;
+  font-size: 1.05rem;
+}
+
+/* Avatar (circle image) */
+.avatar {
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Panel images (section images) */
+.panel-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+}
+
+/* Make section headings consistent */
+.band h2 {
+  margin-top: 0;
+}
+
+/* Skill list: keep your chip-list look but readable */
+.chip-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+/* Contact styling on dark section */
+.band-dark a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.contact-block {
+  max-width: 70ch;
+}
+
+.contact-line {
+  margin: 0.5rem 0;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 820px) {
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .media {
+    flex: none;
+    width: 100%;
+  }
+
+  .avatar {
+    width: 180px;
+    height: 180px;
+  }
+}

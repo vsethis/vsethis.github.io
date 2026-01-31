@@ -16,9 +16,9 @@
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
 
+    <!-- Header stays the same -->
     <header class="site-header">
       <div class="container">
-        <!-- Initials logo -->
         <h1 class="site-logo">VS</h1>
 
         <nav aria-label="Main navigation" class="site-nav">
@@ -27,147 +27,152 @@
           <a href="#skills">Skills</a>
           <a href="#experience">Experience</a>
           <a href="visualizations.html">Visualizations</a>
-          
         </nav>
+
         <button id="theme-toggle" type="button">Theme</button>
       </div>
     </header>
 
-  <main id="main" class="container">
-  <!-- HERO -->
-  <section class="hero" aria-labelledby="intro-title">
-    <div class="hero-text">
-      <h2 id="intro-title" class="hero-title">Vuth Sethi</h2>
-      <p class="hero-subtitle">
-        I’m an undergraduate student at Simon Fraser University studying
-        <strong>Finance and Interaction Design</strong>. Outside of school, I enjoy
-        playing soccer and watching movies. I’m also interested in entrepreneurship
-        and building practical skills as a business owner.
-      </p>
+    <main id="main">
+      <!-- HERO (white section) -->
+      <section class="band band-hero">
+        <div class="container">
+          <div class="row row-hero">
+            <div class="media">
+              <img
+                class="avatar"
+                src="https://via.placeholder.com/520"
+                alt="Placeholder portrait"
+              />
+            </div>
 
-      <div class="hero-actions">
-        <a class="btn primary" href="#contact">Contact</a>
-        <a class="btn" href="visualizations.html">View Visualizations</a>
-      </div>
-
-      <ul class="hero-highlights">
-        <li>SFU Undergraduate</li>
-        <li>Co-owner at XShield Tints</li>
-        <li>Finance + Practical business skills</li>
-      </ul>
-    </div>
-
-    <div class="hero-media">
-      <img
-        src="https://via.placeholder.com/640x420"
-        alt="Placeholder hero image"
-      />
-      <p class="hero-caption">Image placeholder — you can replace this later.</p>
-    </div>
-  </section>
-
-  <!-- GRID -->
-  <div class="grid">
-    <!-- LEFT COLUMN -->
-    <div class="stack">
-      <!-- Education -->
-      <section id="education" class="card" aria-labelledby="education-title">
-        <h2 id="education-title">Education</h2>
-        <p>
-          <strong>Simon Fraser University (SFU)</strong> — Undergraduate student,
-          BBA&nbsp;in&nbsp;Finance&nbsp;and&nbsp;Interactive&nbsp;Arts&nbsp;and&nbsp;Technology
-        </p>
-      </section>
-
-      <!-- Skills -->
-      <section id="skills" class="card" aria-labelledby="skills-title">
-        <h2 id="skills-title">Skills</h2>
-        <ul class="chip-list">
-          <li>Basic web development workflows</li>
-          <li>Entrepreneurship & small business operations</li>
-          <li>Client communication & service coordination</li>
-          <li>Accounting, pricing & basic financial management</li>
-        </ul>
-      </section>
-
-      <!-- Experience -->
-      <section id="experience" class="card" aria-labelledby="experience-title">
-        <h2 id="experience-title">Experience</h2>
-
-        <div class="entry">
-          <h3>Certified Window Tint Installation Course</h3>
-          <p class="date">March 2024</p>
-          <p class="description">
-            Completed professional training in window tint installation and
-            industry-standard practices.
-          </p>
-        </div>
-
-        <div class="entry">
-          <h3>XShield Tints — Co-Owner</h3>
-          <p class="date">September 2024 – Present</p>
-          <p class="description">
-            Responsible for managing business operations with a focus on accounting,
-            finances, pricing, and client coordination.
-          </p>
+            <div class="content">
+              <h2 class="hero-name">Hi, I’m Vuth</h2>
+              <p class="hero-intro">
+                I’m an undergraduate student at Simon Fraser University studying
+                <strong>Finance and Interaction Design</strong>. Outside of school, I enjoy
+                playing soccer and watching movies. I’m also interested in entrepreneurship
+                and building practical skills as a business owner.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
-      
-      <!-- Contact -->
-        <section id="contact" class="card" aria-labelledby="contact-title">
-          <h2 id="contact-title">Contact</h2>
-          <p>
-            Email:
-            <a href="mailto:sethivuthichai@gmail.com">sethivuthichai@gmail.com</a>
-            <br />
-            GitHub:
-            <a href="https://github.com/vsethis" target="_blank" rel="noopener">
-            github.com/vsethis
-            </a>
-          </p>
-        </section>
-    </div>
 
-    <!-- RIGHT COLUMN (simple “about panel”) -->
-    <aside class="side card" aria-label="Profile sidebar">
-      <h2>Quick Info</h2>
+      <!-- EDUCATION (light gray band) -->
+      <section id="education" class="band band-light" aria-labelledby="education-title">
+        <div class="container">
+          <div class="row">
+            <div class="media">
+              <img
+                class="panel-img"
+                src="https://via.placeholder.com/720x480"
+                alt="Placeholder image for education"
+              />
+            </div>
 
-      <div class="side-block">
-        <h3>Location</h3>
-        <p>Surrey / Lower Mainland, BC</p>
-      </div>
+            <div class="content cardless">
+              <h2 id="education-title">Education</h2>
+              <p>
+                <strong>Simon Fraser University (SFU)</strong> — Undergraduate student,
+                BBA&nbsp;in&nbsp;Finance&nbsp;and&nbsp;Interactive&nbsp;Arts&nbsp;and&nbsp;Technology
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="side-block">
-        <h3>Current focus</h3>
-        <p>Building business skills and learning web + visualization basics.</p>
-      </div>
+      <!-- EXPERIENCE (light gray band) -->
+      <section id="experience" class="band band-light" aria-labelledby="experience-title">
+        <div class="container">
+          <div class="row">
+            <div class="media">
+              <img
+                class="panel-img"
+                src="https://via.placeholder.com/720x480"
+                alt="Placeholder image for experience"
+              />
+            </div>
 
-      <div class="side-block">
-        <h3>Replaceable images</h3>
-        <p>
-          Add 1–2 photos of your tint work or a clean portrait for a more personal look.
-        </p>
-      </div>
+            <div class="content cardless">
+              <h2 id="experience-title">Experience</h2>
 
-      <div class="side-media">
-        <img
-          src="https://via.placeholder.com/520x320"
-          alt="Placeholder image for portfolio work"
-        />
-      </div>
+              <div class="entry">
+                <h3>Certified Window Tint Installation Course</h3>
+                <p class="date">March 2024</p>
+                <p class="description">
+                  Completed professional training in window tint installation and
+                  industry-standard practices.
+                </p>
+              </div>
 
-      
-    </aside>
-  </div>
-  </main>
+              <div class="entry">
+                <h3>XShield Tints — Co-Owner</h3>
+                <p class="date">September 2024 – Present</p>
+                <p class="description">
+                  Responsible for managing business operations with a focus on accounting,
+                  finances, pricing, and client coordination.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS (light gray band) -->
+      <section id="skills" class="band band-light" aria-labelledby="skills-title">
+        <div class="container">
+          <div class="row">
+            <div class="media">
+              <img
+                class="panel-img"
+                src="https://via.placeholder.com/720x480"
+                alt="Placeholder image for skills"
+              />
+            </div>
+
+            <div class="content cardless">
+              <h2 id="skills-title">Skills</h2>
+              <ul class="chip-list">
+                <li>Basic web development workflows</li>
+                <li>Entrepreneurship &amp; small business operations</li>
+                <li>Client communication &amp; service coordination</li>
+                <li>Accounting, pricing &amp; basic financial management</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT (dark band) -->
+      <section id="contact" class="band band-dark" aria-labelledby="contact-title">
+        <div class="container">
+          <div class="contact-block">
+            <h2 id="contact-title">Contact</h2>
+
+            <p class="contact-line">
+              Email:
+              <a href="mailto:sethivuthichai@gmail.com">sethivuthichai@gmail.com</a>
+            </p>
+
+            <p class="contact-line">
+              GitHub:
+              <a href="https://github.com/vsethis" target="_blank" rel="noopener">
+                github.com/vsethis
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Keep back-to-top + footer -->
+    <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
 
     <footer class="site-footer">
       <div class="container">
         <p>© 2026 Vuth Sethi</p>
       </div>
     </footer>
-
-    <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
-
   </body>
 </html>
