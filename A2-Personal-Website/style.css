@@ -77,10 +77,6 @@ main {
   padding: 3rem 0 2rem;
 }
 
-section {
-  margin: 1.75rem 0;
-}
-
 section:first-of-type p {
   font-size: 1.05rem;
 }
@@ -169,3 +165,51 @@ ul {
   font-size: 0.95rem;
 }
 
+/* Active section highlight (scroll-based) */
+.site-nav a.active-section {
+  font-weight: 600;
+}
+
+/* Reveal on scroll */
+section {
+  margin: 1.75rem 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
+
+section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Back-to-top button */
+#back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+#back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  section {
+    transition: none;
+    transform: none;
+  }
+}
