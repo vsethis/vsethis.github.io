@@ -130,6 +130,7 @@ ul {
   padding: 1rem 0;
   color: var(--muted);
   font-size: 0.95rem;
+  text-align: center;
 }
 
 /* Experience section spacing*/
@@ -410,3 +411,4 @@ aside.is-visible,
     grid-template-columns: 1fr;
   }
 }
+
