@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualizations</title>
+    <title>Vuth Sethi | Visualizations</title>
     <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
   </head>
@@ -11,53 +11,127 @@
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <h1 class="site-logo">VS</h1>
-
-      <nav aria-label="Main navigation" class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="index.html#education">Education</a>
-        <a href="index.html#skills">Skills</a>
-        <a href="index.html#experience">Experience</a>
-        <a href="visualizations.html" aria-current="page">Visualizations</a>
-      </nav>
-      <button id="theme-toggle" type="button">Theme</button>
-    </div>
-  </header>
-
-    <main id="main">
+    <header class="site-header">
       <div class="container">
-        <!-- Visualization 1 -->
-        <section aria-labelledby="viz1-title">
-          <h2 id="viz1-title">Interactive Tint Preview (VLT%)</h2>
-          <p>Select a VLT option to preview how window darkness changes.</p>
+        <h1 class="site-logo">VS</h1>
 
-          <div class="tint-controls" aria-label="Tint options">
-            <button type="button" class="tint-btn" data-vlt="5">5%</button>
-            <button type="button" class="tint-btn" data-vlt="20">20%</button>
-            <button type="button" class="tint-btn" data-vlt="35">35%</button>
-            <button type="button" class="tint-btn" data-vlt="50">50%</button>
+        <nav aria-label="Main navigation" class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="visualizations.html" aria-current="page">Visualizations</a>
+        </nav>
+
+        <button id="theme-toggle" type="button">Theme</button>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-text">
+          <h2 id="page-title" class="hero-title">Visualizations</h2>
+          <p class="hero-subtitle">
+            This page contains two SVG pieces created with JavaScript: an
+            interactive tint preview and a generative SVG artwork.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn" href="index.html">Back to Home</a>
+            <a class="btn primary" href="#tint-viz">Jump to Tint Preview</a>
           </div>
 
-          <p id="tint-status" class="tint-status">Selected: 20% VLT</p>
+          <ul class="hero-highlights">
+            <li>SVG created programmatically (JS)</li>
+            <li>Interactive controls for VLT</li>
+            <li>Generative art that regenerates on click</li>
+          </ul>
+        </div>
 
-          <div id="viz-chart" class="viz-frame"></div>
-        </section>
+        <div class="hero-media">
+          <img
+            src="https://via.placeholder.com/640x420"
+            alt="Placeholder image for visualization page"
+          />
+          <p class="hero-caption">
+            Placeholder image — you can replace this with a screenshot of your visualization.
+          </p>
+        </div>
+      </section>
 
-        <!-- Visualization 2 -->
-        <section aria-labelledby="viz2-title">
-          <h2 id="viz2-title">SVG Art</h2>
-          <p>Generative pattern inspired by light and glass. Click to regenerate.</p>
+      <!-- GRID -->
+      <div class="grid">
+        <!-- LEFT: Visualizations -->
+        <div class="stack">
+          <!-- Visualization 1 -->
+          <section id="tint-viz" class="card" aria-labelledby="viz1-title">
+            <h2 id="viz1-title">Interactive Tint Preview (VLT%)</h2>
+            <p>
+              Select a VLT option to preview how the tint darkness changes in real time.
+            </p>
 
-          <button id="regen-art" type="button">Regenerate</button>
-          <div id="viz-art" class="viz-frame"></div>
-        </section>
+            <div class="tint-controls" aria-label="Tint options">
+              <button type="button" class="tint-btn" data-vlt="5">5%</button>
+              <button type="button" class="tint-btn" data-vlt="20">20%</button>
+              <button type="button" class="tint-btn" data-vlt="35">35%</button>
+              <button type="button" class="tint-btn" data-vlt="50">50%</button>
+            </div>
+
+            <p id="tint-status" class="tint-status">Selected: 20% VLT</p>
+
+            <div id="viz-chart" class="viz-frame"></div>
+          </section>
+
+          <!-- Visualization 2 -->
+          <section class="card" aria-labelledby="viz2-title">
+            <h2 id="viz2-title">SVG Art</h2>
+            <p>
+              A generative pattern inspired by light and glass. Click the button to regenerate.
+            </p>
+
+            <button id="regen-art" type="button">Regenerate</button>
+            <div id="viz-art" class="viz-frame"></div>
+          </section>
+        </div>
+
+        <!-- RIGHT: Notes / Explanation -->
+        <aside class="side card" aria-label="Visualization notes">
+          <h2>Notes</h2>
+
+          <div class="side-block">
+            <h3>What this demonstrates</h3>
+            <p>
+              SVG is generated using JavaScript, and basic interactivity is added using event listeners.
+            </p>
+          </div>
+
+          <div class="side-block">
+            <h3>How to use</h3>
+            <p>
+              Try different VLT values and compare the visual change. Then regenerate the art to produce a new pattern.
+            </p>
+          </div>
+
+          <div class="side-block">
+            <h3>Idea for improvement</h3>
+            <p>
+              Replace placeholder images with screenshots of your actual tint work or the visualization.
+            </p>
+          </div>
+
+          <div class="side-media">
+            <img
+              src="https://via.placeholder.com/520x320"
+              alt="Placeholder image for notes panel"
+            />
+          </div>
+        </aside>
       </div>
     </main>
 
     <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
-    <script src="vis.js"></script>
 
+    <script src="vis.js"></script>
   </body>
 </html>
