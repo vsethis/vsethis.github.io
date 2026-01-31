@@ -4,6 +4,8 @@
 // 2) Reveal sections on scroll (index.html)
 // 3) Back-to-top button (all pages)
 
+console.log("main.js loaded ✅");
+
 document.addEventListener("DOMContentLoaded", () => {
   setupBackToTop();
   setupRevealOnScroll();
