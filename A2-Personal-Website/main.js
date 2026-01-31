@@ -1,15 +1,9 @@
 // main.js
-// Interactivity for the site:
-// 1) Highlight active section in nav while scrolling (index.html)
-// 2) Reveal sections on scroll (index.html)
-// 3) Back-to-top button (all pages)
-
-console.log("main.js loaded ✅");
 
 document.addEventListener("DOMContentLoaded", () => {
   setupBackToTop();
   setupRevealOnScroll();
-  setupActiveSectionHighlight();
+  setupThemeToggle();
 });
 
 function setupBackToTop() {
@@ -17,7 +11,7 @@ function setupBackToTop() {
   if (!btn) return;
 
   function updateButton() {
-    if (window.scrollY > 450) {
+    if (window.scrollY > 120) {
       btn.classList.add("show");
     } else {
       btn.classList.remove("show");
@@ -33,11 +27,9 @@ function setupBackToTop() {
 }
 
 function setupRevealOnScroll() {
-  // Only run on pages that have multiple sections like index.html
   const sections = document.querySelectorAll("main section");
   if (sections.length === 0) return;
 
-  // If IntersectionObserver isn't supported, just show everything
   if (!("IntersectionObserver" in window)) {
     sections.forEach((s) => s.classList.add("is-visible"));
     return;
@@ -58,49 +50,19 @@ function setupRevealOnScroll() {
   sections.forEach((s) => observer.observe(s));
 }
 
-function setupActiveSectionHighlight() {
-  // This feature is only meaningful on index.html where links are #education, #skills, etc.
-  const nav = document.querySelector(".site-nav");
-  if (!nav) return;
+function setupThemeToggle() {
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
 
-  // Only consider nav links that point to sections on the same page (#...)
-  const navLinks = Array.from(nav.querySelectorAll('a[href^="#"]'));
-  if (navLinks.length === 0) return;
-
-  const targets = navLinks
-    .map((a) => document.querySelector(a.getAttribute("href")))
-    .filter(Boolean);
-
-  function setActive(linkEl) {
-    navLinks.forEach((a) => a.classList.remove("active-section"));
-    if (linkEl) linkEl.classList.add("active-section");
+  // Load saved theme
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") {
+    document.body.classList.add("dark");
   }
 
-  function updateActiveOnScroll() {
-    // Find the section closest to the top of the viewport
-    let bestMatch = null;
-    let bestDistance = Infinity;
-
-    targets.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const distance = Math.abs(rect.top - 120); // 120px offset feels natural under header
-      if (rect.top <= 200 && distance < bestDistance) {
-        bestDistance = distance;
-        bestMatch = section;
-      }
-    });
-
-    if (!bestMatch) {
-      // If we're near the top of the page, highlight nothing (Home stays bold via aria-current)
-      setActive(null);
-      return;
-    }
-
-    const id = `#${bestMatch.id}`;
-    const activeLink = navLinks.find((a) => a.getAttribute("href") === id);
-    setActive(activeLink);
-  }
-
-  window.addEventListener("scroll", updateActiveOnScroll, { passive: true });
-  updateActiveOnScroll();
+  btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const isDark = document.body.classList.contains("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
 }
