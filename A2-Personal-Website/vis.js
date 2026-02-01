@@ -5,22 +5,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Default VLT
   const initialVlt = 20;
 
-  const car = buildTintCarSvg();
   const chartContainer = document.getElementById("viz-chart");
+  const status = document.getElementById("tint-status");
+
+  // Build tint preview (car)
+  let car = null;
   if (chartContainer) {
+    car = buildTintCarSvg();
     chartContainer.innerHTML = "";
     chartContainer.appendChild(car.svg);
     applyVltToAllWindows(car.windowEls, initialVlt);
   }
 
-  const status = document.getElementById("tint-status");
   if (status) status.textContent = `Selected: ${initialVlt}% VLT`;
 
   // Wire up tint buttons
   document.querySelectorAll(".tint-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const vlt = Number(btn.dataset.vlt);
-      applyVltToAllWindows(car.windowEls, vlt);
+      if (car) applyVltToAllWindows(car.windowEls, vlt);
       if (status) status.textContent = `Selected: ${vlt}% VLT`;
     });
   });
@@ -29,14 +32,48 @@ document.addEventListener("DOMContentLoaded", () => {
   drawGenerativeArt();
   const regen = document.getElementById("regen-art");
   if (regen) regen.addEventListener("click", drawGenerativeArt);
+
+  // Re-draw visualizations when theme changes
+  // (main.js toggles body.dark; we observe that change here)
+  const bodyObserver = new MutationObserver(() => {
+    // Rebuild tint svg so strokes/labels match theme
+    if (chartContainer) {
+      const currentVlt = getCurrentVltFromStatus(status, initialVlt);
+      car = buildTintCarSvg();
+      chartContainer.innerHTML = "";
+      chartContainer.appendChild(car.svg);
+      applyVltToAllWindows(car.windowEls, currentVlt);
+    }
+
+    // Re-draw art so it stays visible in dark mode
+    drawGenerativeArt();
+  });
+
+  bodyObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 });
+
+function getCurrentVltFromStatus(statusEl, fallback) {
+  if (!statusEl) return fallback;
+  const match = statusEl.textContent.match(/(\d+)\s*%\s*VLT/i);
+  return match ? Number(match[1]) : fallback;
+}
 
 function buildTintCarSvg() {
   const width = 720;
   const height = 300;
   const svg = createSvg(width, height);
 
-  // Background
+  // Detect theme
+  const isDark = document.body.classList.contains("dark");
+
+  // Theme-aware colors
+  const labelColor = isDark ? "#f2f2f2" : "#111";
+  const outline = isDark ? "#f2f2f2" : "#222";
+  const bodyFill = isDark ? "#2a2f3a" : "#f5f5f5";
+  const wheelFill = isDark ? "#0f1115" : "#222";
+  const wheelInner = isDark ? "#9aa3b2" : "#ddd";
+
+  // Background (transparent; the card handles background)
   const bg = ns("rect");
   bg.setAttribute("x", "0");
   bg.setAttribute("y", "0");
@@ -51,6 +88,7 @@ function buildTintCarSvg() {
   title.setAttribute("y", "35");
   title.setAttribute("font-size", "18");
   title.setAttribute("font-weight", "700");
+  title.setAttribute("fill", labelColor);
   title.textContent = "Tint Preview (Click a VLT option)";
   svg.appendChild(title);
 
@@ -60,15 +98,15 @@ function buildTintCarSvg() {
     "d",
     "M120 190 Q160 125 260 125 L410 125 Q500 125 560 165 Q590 185 615 190 L635 205 Q650 215 650 235 L650 245 Q650 255 640 255 L110 255 Q90 255 90 235 L90 225 Q90 205 110 200 Z"
   );
-  body.setAttribute("fill", "#f5f5f5");
-  body.setAttribute("stroke", "#222");
+  body.setAttribute("fill", bodyFill);
+  body.setAttribute("stroke", outline);
   body.setAttribute("stroke-width", "2");
   svg.appendChild(body);
 
   addWheel(svg, 210);
   addWheel(svg, 540);
 
-  // Windows 
+  // Windows
   const windshield = makeRect(265, 135, 70, 40, 6);
   const frontSide = makeRect(340, 135, 80, 45, 6);
   const rearSide = makeRect(430, 140, 85, 40, 6);
@@ -76,7 +114,7 @@ function buildTintCarSvg() {
 
   const windowEls = [windshield, frontSide, rearSide, rear];
   windowEls.forEach((w) => {
-    w.setAttribute("stroke", "#222");
+    w.setAttribute("stroke", outline);
     w.setAttribute("stroke-width", "2");
     svg.appendChild(w);
   });
@@ -94,14 +132,14 @@ function buildTintCarSvg() {
     outer.setAttribute("cx", String(cx));
     outer.setAttribute("cy", "255");
     outer.setAttribute("r", "26");
-    outer.setAttribute("fill", "#222");
+    outer.setAttribute("fill", wheelFill);
     svgEl.appendChild(outer);
 
     const inner = ns("circle");
     inner.setAttribute("cx", String(cx));
     inner.setAttribute("cy", "255");
     inner.setAttribute("r", "12");
-    inner.setAttribute("fill", "#ddd");
+    inner.setAttribute("fill", wheelInner);
     svgEl.appendChild(inner);
   }
 
@@ -110,7 +148,7 @@ function buildTintCarSvg() {
     t.setAttribute("x", String(x));
     t.setAttribute("y", String(y));
     t.setAttribute("font-size", "11");
-    t.setAttribute("fill", "#111");
+    t.setAttribute("fill", labelColor);
     t.textContent = text;
     svgEl.appendChild(t);
   }
@@ -141,7 +179,7 @@ function tintFill(vlt) {
   return `rgb(${shade}, ${shade}, ${shade})`;
 }
 
-/* ---- Creative SVG art ---- */
+/* ---- Creative SVG art (theme-aware) ---- */
 function drawGenerativeArt() {
   const container = document.getElementById("viz-art");
   if (!container) return;
@@ -151,7 +189,13 @@ function drawGenerativeArt() {
   const height = 320;
   const svg = createSvg(width, height);
 
-  // Background
+  const isDark = document.body.classList.contains("dark");
+
+  // Use high contrast colors depending on theme
+  const strokeColor = isDark ? "#e6e6e6" : "#1f1f1f";
+  const nodeColor = isDark ? "#f2f2f2" : "#1f1f1f";
+
+  // Background: transparent; card handles it
   const bg = ns("rect");
   bg.setAttribute("x", "0");
   bg.setAttribute("y", "0");
@@ -160,7 +204,6 @@ function drawGenerativeArt() {
   bg.setAttribute("fill", "transparent");
   svg.appendChild(bg);
 
-  // Points
   const points = [];
   const count = 18;
 
@@ -181,9 +224,9 @@ function drawGenerativeArt() {
     line.setAttribute("y1", String(a.y));
     line.setAttribute("x2", String(b.x));
     line.setAttribute("y2", String(b.y));
-    line.setAttribute("stroke", "#1f1f1f");
+    line.setAttribute("stroke", strokeColor);
     line.setAttribute("stroke-width", "1");
-    line.setAttribute("opacity", "0.35");
+    line.setAttribute("opacity", "0.4");
     svg.appendChild(line);
   }
 
@@ -193,7 +236,7 @@ function drawGenerativeArt() {
     c.setAttribute("cx", String(p.x));
     c.setAttribute("cy", String(p.y));
     c.setAttribute("r", String(rand(3, 7)));
-    c.setAttribute("fill", "#1f1f1f");
+    c.setAttribute("fill", nodeColor);
     c.setAttribute("opacity", "0.85");
     svg.appendChild(c);
   });
@@ -203,15 +246,12 @@ function drawGenerativeArt() {
 
 function createSvg(width, height) {
   const svg = ns("svg");
-
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   svg.setAttribute("role", "img");
-
   svg.style.display = "block";
   return svg;
 }
-
 
 function ns(tag) {
   return document.createElementNS("http://www.w3.org/2000/svg", tag);
