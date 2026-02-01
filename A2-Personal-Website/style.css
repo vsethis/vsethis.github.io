@@ -502,3 +502,8 @@ section.is-visible {
   height: auto;
   display: block;
 }
+
+.logo-fit {
+  object-fit: contain;
+  background: #fff; 
+}
