@@ -460,3 +460,39 @@ section.is-visible {
   margin: 0;
   letter-spacing: 0.02em;
 }
+
+/* ===== Visualizations page polish ===== */
+
+.viz-stage {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viz-stage .viz-frame {
+  width: 100%;
+  min-height: 320px; /* keeps both cards visually consistent */
+}
+
+.viz-caption {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.viz-note {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.viz-note ul {
+  margin: 0.5rem 0 0;
+}
+
+.viz-actions {
+  margin-top: 0.5rem;
+}
