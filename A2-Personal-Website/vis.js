@@ -2,13 +2,12 @@
 // Generates SVG visualizations using JavaScript.
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Default VLT
   const initialVlt = 20;
 
   const chartContainer = document.getElementById("viz-chart");
   const status = document.getElementById("tint-status");
 
-  // Build tint preview (car)
+  // Build tint preview (only if the container exists)
   let car = null;
   if (chartContainer) {
     car = buildTintCarSvg();
@@ -19,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (status) status.textContent = `Selected: ${initialVlt}% VLT`;
 
-  // Wire up tint buttons
+  // Tint buttons
   document.querySelectorAll(".tint-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const vlt = Number(btn.dataset.vlt);
@@ -28,17 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Creative art
+  // Generative art
   drawGenerativeArt();
   const regen = document.getElementById("regen-art");
   if (regen) regen.addEventListener("click", drawGenerativeArt);
+});
 
 function buildTintCarSvg() {
   const width = 720;
   const height = 300;
   const svg = createSvg(width, height);
 
-  // Detect theme
   const isDark = document.body.classList.contains("dark");
 
   // Theme-aware colors
@@ -48,7 +47,7 @@ function buildTintCarSvg() {
   const wheelFill = isDark ? "#0f1115" : "#222";
   const wheelInner = isDark ? "#9aa3b2" : "#ddd";
 
-  // Background (transparent; the card handles background)
+  // Background (transparent; card handles background)
   const bg = ns("rect");
   bg.setAttribute("x", "0");
   bg.setAttribute("y", "0");
@@ -67,7 +66,7 @@ function buildTintCarSvg() {
   title.textContent = "Tint Preview (Click a VLT option)";
   svg.appendChild(title);
 
-  // Car body (simple silhouette)
+  // Car body
   const body = ns("path");
   body.setAttribute(
     "d",
@@ -94,7 +93,7 @@ function buildTintCarSvg() {
     svg.appendChild(w);
   });
 
-  // Small labels (static)
+  // Labels
   addLabel(svg, 265, 130, "Windshield");
   addLabel(svg, 340, 130, "Front");
   addLabel(svg, 430, 135, "Rear Side");
@@ -147,17 +146,17 @@ function applyVltToAllWindows(windowEls, vlt) {
   });
 }
 
-// Map VLT% -> grayscale fill (lower VLT = darker)
 function tintFill(vlt) {
   const v = Math.max(0, Math.min(100, vlt));
   const shade = Math.round(20 + (v / 100) * 210); // 20..230
   return `rgb(${shade}, ${shade}, ${shade})`;
 }
 
-/* ---- Creative SVG art (theme-aware) ---- */
+/* ---- Generative SVG art (theme-aware) ---- */
 function drawGenerativeArt() {
   const container = document.getElementById("viz-art");
   if (!container) return;
+
   container.innerHTML = "";
 
   const width = 720;
@@ -165,12 +164,9 @@ function drawGenerativeArt() {
   const svg = createSvg(width, height);
 
   const isDark = document.body.classList.contains("dark");
-
-  // Use high contrast colors depending on theme
   const strokeColor = isDark ? "#e6e6e6" : "#1f1f1f";
   const nodeColor = isDark ? "#f2f2f2" : "#1f1f1f";
 
-  // Background: transparent; card handles it
   const bg = ns("rect");
   bg.setAttribute("x", "0");
   bg.setAttribute("y", "0");
@@ -189,7 +185,6 @@ function drawGenerativeArt() {
     });
   }
 
-  // Lines between points
   for (let i = 0; i < points.length; i++) {
     const a = points[i];
     const b = points[(i + 1) % points.length];
@@ -205,7 +200,6 @@ function drawGenerativeArt() {
     svg.appendChild(line);
   }
 
-  // Nodes
   points.forEach((p) => {
     const c = ns("circle");
     c.setAttribute("cx", String(p.x));
