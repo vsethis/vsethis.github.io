@@ -33,31 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const regen = document.getElementById("regen-art");
   if (regen) regen.addEventListener("click", drawGenerativeArt);
 
-  // Re-draw visualizations when theme changes
-  // (main.js toggles body.dark; we observe that change here)
-  const bodyObserver = new MutationObserver(() => {
-    // Rebuild tint svg so strokes/labels match theme
-    if (chartContainer) {
-      const currentVlt = getCurrentVltFromStatus(status, initialVlt);
-      car = buildTintCarSvg();
-      chartContainer.innerHTML = "";
-      chartContainer.appendChild(car.svg);
-      applyVltToAllWindows(car.windowEls, currentVlt);
-    }
-
-    // Re-draw art so it stays visible in dark mode
-    drawGenerativeArt();
-  });
-
-  bodyObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-});
-
-function getCurrentVltFromStatus(statusEl, fallback) {
-  if (!statusEl) return fallback;
-  const match = statusEl.textContent.match(/(\d+)\s*%\s*VLT/i);
-  return match ? Number(match[1]) : fallback;
-}
-
 function buildTintCarSvg() {
   const width = 720;
   const height = 300;
