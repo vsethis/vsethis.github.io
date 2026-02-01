@@ -336,8 +336,9 @@ section.is-visible {
 
 .logo-fit {
   object-fit: contain;
-  max-width: 70%;
-  max-height: 180px;
+  width: 100%;
+  max-width: 260px;
+  max-height: 140px;  
 }
 
 /* Make section headings consistent */
