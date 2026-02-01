@@ -334,6 +334,13 @@ section.is-visible {
   display: block;
 }
 
+.logo-fit {
+  object-fit: contain;
+  max-width: 70%;
+  max-height: 180px;
+  margin: auto;
+}
+
 /* Make section headings consistent */
 .band h2 {
   margin-top: 0;
@@ -411,7 +418,6 @@ section.is-visible {
   border-radius: 0;                
   margin: 0;                       
 }
-
 
 /* Right side (text area) */
 .split-body {
@@ -503,7 +509,3 @@ section.is-visible {
   display: block;
 }
 
-.logo-fit {
-  object-fit: contain;
-  background: #fff; 
-}
