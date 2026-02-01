@@ -338,7 +338,6 @@ section.is-visible {
   object-fit: contain;
   max-width: 70%;
   max-height: 180px;
-  margin: auto;
 }
 
 /* Make section headings consistent */
@@ -408,7 +407,9 @@ section.is-visible {
 
 /* Left side (image area) */
 .split-media {
-  height: 100%;
+  display: flex;
+  align-items: center;     
+  justify-content: center;
 }
 
 .split-media .panel-img {
