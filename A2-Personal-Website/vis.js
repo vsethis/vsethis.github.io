@@ -42,7 +42,7 @@ function buildTintCarSvg() {
   bg.setAttribute("y", "0");
   bg.setAttribute("width", String(width));
   bg.setAttribute("height", String(height));
-  bg.setAttribute("fill", "#fff");
+  bg.setAttribute("fill", "transparent");
   svg.appendChild(bg);
 
   // Title
@@ -157,7 +157,7 @@ function drawGenerativeArt() {
   bg.setAttribute("y", "0");
   bg.setAttribute("width", String(width));
   bg.setAttribute("height", String(height));
-  bg.setAttribute("fill", "#f4f4f4");
+  bg.setAttribute("fill", "transparent");
   svg.appendChild(bg);
 
   // Points
@@ -203,13 +203,15 @@ function drawGenerativeArt() {
 
 function createSvg(width, height) {
   const svg = ns("svg");
-  svg.setAttribute("width", String(width));
-  svg.setAttribute("height", String(height));
+
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   svg.setAttribute("role", "img");
+
   svg.style.display = "block";
   return svg;
 }
+
 
 function ns(tag) {
   return document.createElementNS("http://www.w3.org/2000/svg", tag);

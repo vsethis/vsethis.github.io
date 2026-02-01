@@ -496,3 +496,9 @@ section.is-visible {
 .viz-actions {
   margin-top: 0.5rem;
 }
+
+.viz-frame svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
