@@ -46,7 +46,7 @@
               <div class="viz-note">
                 <p><strong>What you’ll see:</strong></p>
                 <ul>
-                  <li>Interactive tint preview (VLT%)</li>
+                  <li>Tint Tradeoff Chart (Privacy vs. Visibility)</li>
                   <li>Generative “light on glass” SVG art</li>
                 </ul>
               </div>
@@ -60,31 +60,29 @@
         <div class="container">
           <div class="split-card-stack">
 
-            <!-- Card 1: Interactive Tint Preview -->
+            <!-- Card 1: Tint Tradeoff Chart -->
             <section class="split-card" aria-labelledby="viz1-title">
+            
               <!-- LEFT: SVG output area -->
               <div class="split-media viz-stage">
-                <div id="viz-chart" class="viz-frame" aria-label="Tint preview SVG area"></div>
-              </div>
-
-              <!-- RIGHT: text + controls -->
-              <div class="split-body">
-                <h2 id="viz1-title">Interactive Tint Preview (VLT%)</h2>
-                <p>
-                  Pick a VLT option to preview window darkness.
-                  Lower VLT means darker tint.
-                </p>
-
-                <div class="tint-controls" aria-label="Tint options">
-                  <button type="button" class="tint-btn" data-vlt="5">5%</button>
-                  <button type="button" class="tint-btn" data-vlt="20">20%</button>
-                  <button type="button" class="tint-btn" data-vlt="35">35%</button>
-                  <button type="button" class="tint-btn" data-vlt="50">50%</button>
+                <div class="viz-frame" aria-label="Tint tradeoff chart area">
+                <svg id="tintChart" viewBox="0 0 900 520" role="img" aria-label="Tint tradeoff chart"></svg>
                 </div>
-
-                <p id="tint-status" class="tint-status">Selected: 20% VLT</p>
-
               </div>
+
+            <!-- RIGHT: explanation -->
+            <div class="split-body">
+              <h2 id="viz1-title">More Privacy, Less Visibility: The Tint Percentage Tradeoff</h2>
+              <p>
+              This chart compares two things across tint percentages:
+              <strong>visibility</strong> (red) and <strong>confidence</strong> (blue).
+              Lower tint % means darker tint.
+              </p>
+            
+              <p class="viz-caption">
+              Tip: 20% is marked as a reference point because it’s a common “privacy-focused” choice.
+              </p>
+            </div>
             </section>
 
             <!-- Card 2: Generative SVG Art -->
@@ -106,9 +104,6 @@
                   <button id="regen-art" type="button">Regenerate</button>
                 </div>
 
-                <p class="viz-caption">
-                  Built using JavaScript to generate SVG shapes dynamically.
-                </p>
               </div>
             </section>
 
@@ -120,7 +115,6 @@
 
     <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
 
-    <!-- vis.js generates the SVGs inside #viz-chart and #viz-art -->
     <script src="vis.js"></script>
 
     <footer class="site-footer">

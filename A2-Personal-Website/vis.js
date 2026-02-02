@@ -2,30 +2,8 @@
 // Generates SVG visualizations using JavaScript.
 
 document.addEventListener("DOMContentLoaded", () => {
-  const initialVlt = 20;
-
-  const chartContainer = document.getElementById("viz-chart");
-  const status = document.getElementById("tint-status");
-
-  // Build tint preview (only if the container exists)
-  let car = null;
-  if (chartContainer) {
-    car = buildTintCarSvg();
-    chartContainer.innerHTML = "";
-    chartContainer.appendChild(car.svg);
-    applyVltToAllWindows(car.windowEls, initialVlt);
-  }
-
-  if (status) status.textContent = `Selected: ${initialVlt}% VLT`;
-
-  // Tint buttons
-  document.querySelectorAll(".tint-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const vlt = Number(btn.dataset.vlt);
-      if (car) applyVltToAllWindows(car.windowEls, vlt);
-      if (status) status.textContent = `Selected: ${vlt}% VLT`;
-    });
-  });
+  // Draw chart if the SVG exists on this page
+  drawTintTradeoffChart();
 
   // Generative art
   drawGenerativeArt();
@@ -33,126 +11,206 @@ document.addEventListener("DOMContentLoaded", () => {
   if (regen) regen.addEventListener("click", drawGenerativeArt);
 });
 
-function buildTintCarSvg() {
-  const width = 720;
-  const height = 300;
-  const svg = createSvg(width, height);
+/* =========================
+   Visualization 1: Tradeoff Chart
+   ========================= */
+
+function drawTintTradeoffChart() {
+  const svg = document.getElementById("tintChart");
+  if (!svg) return;
+
+  svg.innerHTML = "";
 
   const isDark = document.body.classList.contains("dark");
 
   // Theme-aware colors
-  const labelColor = isDark ? "#f2f2f2" : "#111";
-  const outline = isDark ? "#f2f2f2" : "#222";
-  const bodyFill = isDark ? "#2a2f3a" : "#f5f5f5";
-  const wheelFill = isDark ? "#0f1115" : "#222";
-  const wheelInner = isDark ? "#9aa3b2" : "#ddd";
+  const bgFill = "transparent"; // card handles background
+  const axis = isDark ? "#cfcfcf" : "#999";
+  const text = isDark ? "#f2f2f2" : "#111";
+  const subtle = isDark ? "#2f3642" : "#eee";
+  const legendStroke = isDark ? "#3a4250" : "#ddd";
 
-  // Background (transparent; card handles background)
-  const bg = ns("rect");
-  bg.setAttribute("x", "0");
-  bg.setAttribute("y", "0");
-  bg.setAttribute("width", String(width));
-  bg.setAttribute("height", String(height));
-  bg.setAttribute("fill", "transparent");
-  svg.appendChild(bg);
+  const confidenceColor = "#2e6bd6"; // blue
+  const visibilityColor = "#e74c3c"; // red
+  const refColor = isDark ? "#cfcfcf" : "#444";
 
-  // Title
-  const title = ns("text");
-  title.setAttribute("x", "20");
-  title.setAttribute("y", "35");
-  title.setAttribute("font-size", "18");
-  title.setAttribute("font-weight", "700");
-  title.setAttribute("fill", labelColor);
-  title.textContent = "Tint Preview (Click a VLT option)";
-  svg.appendChild(title);
+  // Your data (kept as-is)
+  const data = [
+    { tint: 70, confidence: 1, visibility: 9 },
+    { tint: 60, confidence: 2, visibility: 8 },
+    { tint: 50, confidence: 3, visibility: 7 },
+    { tint: 40, confidence: 5, visibility: 6 },
+    { tint: 30, confidence: 6, visibility: 5 },
+    { tint: 20, confidence: 7, visibility: 3 },
+    { tint: 10, confidence: 8, visibility: 2 },
+    { tint: 0, confidence: 9, visibility: 1 },
+  ].sort((a, b) => a.tint - b.tint);
 
-  // Car body
-  const body = ns("path");
-  body.setAttribute(
-    "d",
-    "M120 190 Q160 125 260 125 L410 125 Q500 125 560 165 Q590 185 615 190 L635 205 Q650 215 650 235 L650 245 Q650 255 640 255 L110 255 Q90 255 90 235 L90 225 Q90 205 110 200 Z"
-  );
-  body.setAttribute("fill", bodyFill);
-  body.setAttribute("stroke", outline);
-  body.setAttribute("stroke-width", "2");
-  svg.appendChild(body);
+  const W = 900;
+  const H = 520;
 
-  addWheel(svg, 210);
-  addWheel(svg, 540);
+  const margin = { top: 30, right: 70, bottom: 70, left: 70 };
+  const innerW = W - margin.left - margin.right;
+  const innerH = H - margin.top - margin.bottom;
 
-  // Windows
-  const windshield = makeRect(265, 135, 70, 40, 6);
-  const frontSide = makeRect(340, 135, 80, 45, 6);
-  const rearSide = makeRect(430, 140, 85, 40, 6);
-  const rear = makeRect(520, 150, 55, 35, 6);
+  // Scale helpers
+  function xScale(tint) {
+    return margin.left + (tint / 70) * innerW; 
+  }
 
-  const windowEls = [windshield, frontSide, rearSide, rear];
-  windowEls.forEach((w) => {
-    w.setAttribute("stroke", outline);
-    w.setAttribute("stroke-width", "2");
-    svg.appendChild(w);
+  function yScale(v) {
+    return margin.top + innerH - ((v - 1) / 9) * innerH; 
+  }
+
+  function el(name, attrs = {}) {
+    const e = document.createElementNS("http://www.w3.org/2000/svg", name);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    svg.appendChild(e);
+    return e;
+  }
+
+  // Background
+  el("rect", { x: 0, y: 0, width: W, height: H, fill: bgFill });
+
+  // Axes
+  el("line", {
+    x1: margin.left,
+    y1: margin.top,
+    x2: margin.left,
+    y2: margin.top + innerH,
+    stroke: axis,
   });
 
-  // Labels
-  addLabel(svg, 265, 130, "Windshield");
-  addLabel(svg, 340, 130, "Front");
-  addLabel(svg, 430, 135, "Rear Side");
-  addLabel(svg, 520, 145, "Rear");
-
-  return { svg, windowEls };
-
-  function addWheel(svgEl, cx) {
-    const outer = ns("circle");
-    outer.setAttribute("cx", String(cx));
-    outer.setAttribute("cy", "255");
-    outer.setAttribute("r", "26");
-    outer.setAttribute("fill", wheelFill);
-    svgEl.appendChild(outer);
-
-    const inner = ns("circle");
-    inner.setAttribute("cx", String(cx));
-    inner.setAttribute("cy", "255");
-    inner.setAttribute("r", "12");
-    inner.setAttribute("fill", wheelInner);
-    svgEl.appendChild(inner);
-  }
-
-  function addLabel(svgEl, x, y, text) {
-    const t = ns("text");
-    t.setAttribute("x", String(x));
-    t.setAttribute("y", String(y));
-    t.setAttribute("font-size", "11");
-    t.setAttribute("fill", labelColor);
-    t.textContent = text;
-    svgEl.appendChild(t);
-  }
-
-  function makeRect(x, y, w, h, rx) {
-    const el = ns("rect");
-    el.setAttribute("x", String(x));
-    el.setAttribute("y", String(y));
-    el.setAttribute("width", String(w));
-    el.setAttribute("height", String(h));
-    el.setAttribute("rx", String(rx));
-    return el;
-  }
-}
-
-function applyVltToAllWindows(windowEls, vlt) {
-  const fill = tintFill(vlt);
-  windowEls.forEach((w) => {
-    w.setAttribute("fill", fill);
-    w.setAttribute("opacity", "0.92");
+  el("line", {
+    x1: margin.left,
+    y1: margin.top + innerH,
+    x2: margin.left + innerW,
+    y2: margin.top + innerH,
+    stroke: axis,
   });
+
+  // X ticks (0..70 step 10)
+  for (let t = 0; t <= 70; t += 10) {
+    const x = xScale(t);
+
+    el("line", {
+      x1: x,
+      y1: margin.top + innerH,
+      x2: x,
+      y2: margin.top + innerH + 6,
+      stroke: axis,
+    });
+
+    el("text", {
+      x,
+      y: margin.top + innerH + 24,
+      "text-anchor": "middle",
+      "font-size": "12",
+      fill: text,
+    }).textContent = t;
+  }
+
+  // Y ticks (1..10) + gridlines
+  for (let v = 1; v <= 10; v++) {
+    const y = yScale(v);
+
+    el("line", { x1: margin.left - 6, y1: y, x2: margin.left, y2: y, stroke: axis });
+
+    el("text", {
+      x: margin.left - 12,
+      y: y + 4,
+      "text-anchor": "end",
+      "font-size": "12",
+      fill: text,
+    }).textContent = v;
+
+    el("line", {
+      x1: margin.left,
+      y1: y,
+      x2: margin.left + innerW,
+      y2: y,
+      stroke: subtle,
+    });
+  }
+
+  // Axis labels
+  el("text", {
+    x: margin.left + innerW / 2,
+    y: H - 25,
+    "text-anchor": "middle",
+    "font-size": "14",
+    fill: text,
+  }).textContent = "Tint Percentage (lower % = darker tint)";
+
+  el("text", {
+    x: 18,
+    y: margin.top + innerH / 2,
+    transform: `rotate(-90 18 ${margin.top + innerH / 2})`,
+    "text-anchor": "middle",
+    "font-size": "14",
+    fill: text,
+  }).textContent = "Visibility (1 = very poor, 10 = very clear)";
+
+  el("text", {
+    x: W - 18,
+    y: margin.top + innerH / 2,
+    transform: `rotate(90 ${W - 18} ${margin.top + innerH / 2})`,
+    "text-anchor": "middle",
+    "font-size": "14",
+    fill: text,
+  }).textContent = "Confidence (1 = low, 10 = very high)";
+
+  // Reference line at 20%
+  const refX = xScale(20);
+  el("line", {
+    x1: refX,
+    y1: margin.top,
+    x2: refX,
+    y2: margin.top + innerH,
+    stroke: refColor,
+    "stroke-dasharray": "6 6",
+  });
+
+  el("text", { x: refX + 6, y: margin.top + innerH + 45, "font-size": "12", fill: refColor })
+    .textContent = "High privacy, low night visibility";
+
+  // Line path builder
+  function linePath(key) {
+    return data
+      .map((d, i) => `${i === 0 ? "M" : "L"} ${xScale(d.tint)} ${yScale(d[key])}`)
+      .join(" ");
+  }
+
+  // Visibility line (red)
+  el("path", {
+    d: linePath("visibility"),
+    fill: "none",
+    stroke: visibilityColor,
+    "stroke-width": "4",
+  });
+
+  // Confidence line (blue)
+  el("path", {
+    d: linePath("confidence"),
+    fill: "none",
+    stroke: confidenceColor,
+    "stroke-width": "4",
+  });
+
+  // Legend
+  el("rect", { x: W - 170, y: 20, width: 150, height: 56, fill: "transparent", stroke: legendStroke });
+
+  el("line", { x1: W - 160, y1: 40, x2: W - 130, y2: 40, stroke: confidenceColor, "stroke-width": "4" });
+  el("text", { x: W - 120, y: 44, "font-size": "12", fill: text }).textContent = "Confidence";
+
+  el("line", { x1: W - 160, y1: 62, x2: W - 130, y2: 62, stroke: visibilityColor, "stroke-width": "4" });
+  el("text", { x: W - 120, y: 66, "font-size": "12", fill: text }).textContent = "Visibility";
 }
 
-function tintFill(vlt) {
-  const v = Math.max(0, Math.min(100, vlt));
-  const shade = Math.round(20 + (v / 100) * 210); // 20..230
-  return `rgb(${shade}, ${shade}, ${shade})`;
-}
+/* =========================
+   Visualization 2: Generative SVG Art (theme-aware)
+   ========================= */
 
-/* ---- Generative SVG art (theme-aware) ---- */
 function drawGenerativeArt() {
   const container = document.getElementById("viz-art");
   if (!container) return;
@@ -212,6 +270,10 @@ function drawGenerativeArt() {
 
   container.appendChild(svg);
 }
+
+/* =========================
+   Helpers
+   ========================= */
 
 function createSvg(width, height) {
   const svg = ns("svg");
