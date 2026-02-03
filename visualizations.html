@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualizations | Vuth Sethi</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Header stays consistent -->
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-logo">VS</h1>
+
+        <nav aria-label="Main navigation" class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="visualizations.html" aria-current="page">Visualizations</a>
+        </nav>
+
+        <button id="theme-toggle" type="button">Theme</button>
+      </div>
+    </header>
+
+    <p style="color:red; font-weight:bold;">
+      DEBUG: NEW VISUALIZATIONS PAGE LOADED
+    </p>
+
+    <main id="main">
+      <!-- HERO band (white) -->
+      <section class="band band-hero">
+        <div class="container">
+          <div class="row row-hero">
+            <div class="content">
+              <h2 class="hero-name">Visualizations</h2>
+              <p class="hero-intro">
+                This page includes an SVG visualization and a generative SVG artwork.
+              </p>
+            </div>
+
+            <div class="media">
+              <!-- simple “legend” box (no extra JS needed) -->
+              <div class="viz-note">
+                <p><strong>What you’ll see:</strong></p>
+                <ul>
+                  <li>Tint Tradeoff Chart (Privacy vs. Visibility)</li>
+                  <li>Generative “light on glass” SVG art</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIGHT band containing both white cards -->
+      <div class="band band-light" aria-label="Visualization cards">
+        <div class="container">
+          <div class="split-card-stack">
+
+            <!-- Card 1: Tint Tradeoff Chart -->
+            <section class="split-card" aria-labelledby="viz1-title">
+            
+              <!-- LEFT: SVG output area -->
+              <div class="split-media viz-stage">
+                <div class="viz-frame" aria-label="Tint tradeoff chart area">
+                <svg 
+                  id="tintChart"
+                  width="900"
+                  height="520"
+                  viewBox="0 0 900 520"
+                  role="img"
+                  aria-label="Tint tradeoff chart"
+                ></svg>
+
+                </div>
+              </div>
+
+            <!-- RIGHT: explanation -->
+            <div class="split-body">
+              <h2 id="viz1-title">More Privacy, Less Visibility: The Tint Percentage Tradeoff</h2>
+              <p>
+              This chart compares two things across tint percentages:
+              <strong>visibility</strong> (red) and <strong>confidence</strong> (blue).
+              Lower tint % means darker tint.
+              </p>
+            
+              <p class="viz-caption">
+              Tip: 20% is marked as a reference point because it’s a common “privacy-focused” choice.
+              </p>
+            </div>
+            </section>
+
+            <!-- Card 2: Generative SVG Art -->
+            <section class="split-card" aria-labelledby="viz2-title">
+              <!-- LEFT: SVG output area -->
+              <div class="split-media viz-stage">
+                <div id="viz-art" class="viz-frame" aria-label="Generative SVG art area"></div>
+              </div>
+
+              <!-- RIGHT: text + action -->
+              <div class="split-body">
+                <h2 id="viz2-title">Generative SVG Art</h2>
+                <p>
+                  A pattern inspired by light reflections on glass.
+                  Click regenerate to create a new composition each time.
+                </p>
+
+                <div class="viz-actions">
+                  <button id="regen-art" type="button">Regenerate</button>
+                </div>
+
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
+
+    <script src="vis.js"></script>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Vuth Sethi</p>
+      </div>
+    </footer>
+  </body>
+</html>
