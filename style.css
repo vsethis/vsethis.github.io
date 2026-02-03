@@ -519,3 +519,21 @@ section.is-visible {
   display: block;
 }
 
+/* Allow grid children to shrink properly */
+.split-media,
+.split-body {
+  min-width: 0;
+}
+
+/* Ensure the SVG never overflows its column */
+#tintChart {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* Prevent the frame itself from causing overflow */
+.viz-frame {
+  overflow: hidden;
+}
