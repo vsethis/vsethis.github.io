@@ -52,21 +52,31 @@ function setupRevealOnScroll() {
 
 function setupThemeToggle() {
   const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
 
-  // Load saved theme
+  // Apply saved theme immediately
   const saved = localStorage.getItem("theme");
   if (saved === "dark") {
     document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
   }
+
+  if (!btn) return;
 
   btn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     const isDark = document.body.classList.contains("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
+    // Redraw visualizations if they exist on this page
     if (typeof drawGenerativeArt === "function") drawGenerativeArt();
     if (typeof drawTintTradeoffChart === "function") drawTintTradeoffChart();
   });
+
+  // If we loaded into dark mode, redraw charts once after everything is ready
+  if (saved === "dark") {
+    if (typeof drawGenerativeArt === "function") drawGenerativeArt();
+    if (typeof drawTintTradeoffChart === "function") drawTintTradeoffChart();
+  }
 }
 
