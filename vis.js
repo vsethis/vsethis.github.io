@@ -171,9 +171,6 @@ function drawTintTradeoffChart() {
     "stroke-dasharray": "6 6",
   });
 
-  el("text", { x: refX + 6, y: margin.top + innerH + 45, "font-size": "12", fill: refColor })
-    .textContent = "High privacy, low night visibility";
-
   // Line path builder
   function linePath(key) {
     return data
