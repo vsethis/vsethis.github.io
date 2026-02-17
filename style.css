@@ -537,3 +537,16 @@ section.is-visible {
 .viz-frame {
   overflow: hidden;
 }
+
+/* A3 Vega containers: give charts room to render */
+
+.viz-frame > div {
+  width: 100%;
+}
+
+#vis1, #vis2, #vis3, #vis4, #vis5, #vis6, #vis7, #vis8 {
+  width: 100%;
+  min-height: 420px;
+}
+
+

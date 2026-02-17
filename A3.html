@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A3 Vega-Lite | Vuth Sethi</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+
+    <!-- Vega / Vega-Lite libs -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Header stays consistent -->
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-logo">VS</h1>
+
+        <nav aria-label="Main navigation" class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="visualizations.html">Visualizations</a>
+          <a href="a3.html" aria-current="page">A3</a>
+        </nav>
+
+        <button id="theme-toggle" type="button">Theme</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- HERO band -->
+      <section class="band band-hero">
+        <div class="container">
+          <div class="row row-hero">
+            <div class="content">
+              <h2 class="hero-name">Assignment 3: Video Game Sales (Vega-Lite)</h2>
+              <p>
+                Eight visualizations exploring global sales patterns across genre, platform, time, and region.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIGHT band with cards -->
+      <section class="band band-light" aria-label="Assignment 3 visualizations">
+        <div class="container">
+          <div class="split-card-stack">
+
+            <!-- Topic 1 -->
+            <section class="split-card" aria-labelledby="a3-topic1a">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis1"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic1a">Visualization 1A: Global Sales by Genre</h2>
+                <h3 class="question">
+                  Which genres generate the highest total global sales across all platforms?
+                </h3>
+                <p class="viz-caption">
+                  Action and Sports have the highest total global sales across all platforms. After the top three genres,
+                  sales drop clearly, showing that a few major genres dominate the market.
+                </p>
+              </div>
+            </section>
+
+            <section class="split-card" aria-labelledby="a3-topic1b">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis2"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic1b">Visualization 1B: Global Sales by Platform and Genre</h2>
+                <h3 class="question">
+                  Which platforms generate the highest total global sales, and does their dominance differ across genres? (Top 5 platforms only)
+                </h3>
+                <p class="viz-caption">
+                  PS2 has the highest total sales among the top five platforms, but each platform shows a different genre pattern.
+                  Wii has stronger sales in Misc and Platform games, while PS3 and X360 depend more on Action and Shooter titles.
+                </p>
+              </div>
+            </section>
+
+            <!-- Topic 2 -->
+            <section class="split-card" aria-labelledby="a3-topic2a">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis3"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic2a">Visualization 2A: Sales Over Time by Platform</h2>
+                <h3 class="question">
+                  How have total global sales changed over time for the top 5 platforms?
+                </h3>
+                <p class="viz-caption">
+                  Sales for each top platform follow a clear life cycle pattern, with strong growth, a peak period, and then decline.
+                  PS2 dominates early in the 2000s, while Wii peaks sharply around 2008, and X360 and PS3 reach their highest sales
+                  slightly later before gradually decreasing.
+                </p>
+              </div>
+            </section>
+
+            <section class="split-card" aria-labelledby="a3-topic2b">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis4"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic2b">Visualization 2B: Sales Over Time by Genre</h2>
+                <h3 class="question" style="margin-top: 0;">
+                  How have total global sales changed over time for the top 5 genres?
+                </h3>
+                <p class="viz-caption">
+                  Action and Sports consistently have the highest yearly sales, with clear peaks around the late 2000s.
+                  After 2010, most genres show a steady decline, suggesting a shift in overall market momentum.
+                </p>
+              </div>
+            </section>
+
+            <!-- Topic 3 -->
+            <section class="split-card" aria-labelledby="a3-topic3a">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis5"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic3a">Visualization 3A: Regional Sales by Platform</h2>
+                <h3 class="question">
+                  For the top 5 platforms by global sales, how do regional sales compare across North America, Europe, Japan, and Other regions?
+                </h3>
+                <p class="viz-caption">
+                  North America is the strongest region by a wide margin. Even the lowest-selling platform in North America is still higher than the
+                  highest-selling platform in Europe, which shows how much the top 5 platforms depend on NA sales compared to the other regions.
+                </p>
+              </div>
+            </section>
+
+            <section class="split-card" aria-labelledby="a3-topic3b">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis6"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic3b">Visualization 3B: Japan vs North America</h2>
+                <h3 class="question">
+                  Which platforms have the highest sales in Japan compared to North America (top 10 platforms in each region)?
+                </h3>
+                <p class="viz-caption">
+                  Japan and North America show very different platform preferences. North America is led by X360 and PS2, while Japan favors Nintendo
+                  and older PlayStation platforms such as DS, SNES, and PS.
+                </p>
+              </div>
+            </section>
+
+            <!-- Topic 4 -->
+            <section class="split-card" aria-labelledby="a3-topic4a">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis7"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic4a">Visualization 4A: Blockbusters and the Long Tail</h2>
+                <h3 class="question">
+                  Are video game sales concentrated among a small number of blockbuster titles, or distributed more evenly across many games?
+                </h3>
+                <p class="viz-caption">
+                  Most games sell under 1 million units, while only a very small number reach high sales levels. This indicates a long-tail pattern where a few
+                  blockbuster titles drive a large share of total sales.
+                </p>
+              </div>
+            </section>
+
+            <section class="split-card" aria-labelledby="a3-topic4b">
+              <div class="split-media viz-stage">
+                <div class="viz-frame">
+                  <div id="vis8"></div>
+                </div>
+              </div>
+
+              <div class="split-body">
+                <h2 id="a3-topic4b">Visualization 4B: Publisher Diversity and Sales</h2>
+                <h3 class="question">
+                  Do publishers differ in how diversified they are across genres, and does diversification relate to higher total sales?
+                </h3>
+                <p class="viz-caption">
+                  Publishers that release games across more genres generally earn higher total global sales, which suggests that spreading risk across different
+                  types of games can help overall performance. It also shows that long-term growth is often about building a broad portfolio, not just one hit game.
+                </p>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
+
+    <script src="vis-topic1.js"></script>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Vuth Sethi</p>
+      </div>
+    </footer>
+  </body>
+</html>
