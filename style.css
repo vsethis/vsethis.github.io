@@ -549,9 +549,18 @@ section.is-visible {
   min-height: 420px;
 }
 
-/* ===== A3 page wider layout only ===== */
-.band-light[aria-label="Assignment 3 visualizations"] .container {
-  max-width: 1280px;   /* increase width just for A3 */
+/* A3 only: make charts less squished */
+.page-a3 .container {
+  max-width: 1280px;
 }
+
+.page-a3 .split-card {
+  grid-template-columns: 1.35fr 0.65fr;
+}
+
+.page-a3 .viz-stage {
+  padding: 0.75rem;
+}
+
 
 
