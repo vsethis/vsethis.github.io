@@ -538,7 +538,7 @@ section.is-visible {
   overflow: hidden;
 }
 
-/* A3 Vega containers: give charts room to render */
+/* A3 Vega containers */
 
 .viz-frame > div {
   width: 100%;
@@ -547,6 +547,11 @@ section.is-visible {
 #vis1, #vis2, #vis3, #vis4, #vis5, #vis6, #vis7, #vis8 {
   width: 100%;
   min-height: 420px;
+}
+
+/* ===== A3 page wider layout only ===== */
+.band-light[aria-label="Assignment 3 visualizations"] .container {
+  max-width: 1280px;   /* increase width just for A3 */
 }
 
 
