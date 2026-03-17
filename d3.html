@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D3 Interaction | Vuth Sethi</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-logo">VS</h1>
+
+        <nav aria-label="Main navigation" class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="visualizations.html">Visualizations</a>
+          <a href="A3.html">Vega-Lite</a>
+          <a href="d3.html" aria-current="page">D3</a>
+        </nav>
+
+        <button id="theme-toggle" type="button">Theme</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="band band-hero">
+        <div class="container">
+          <div class="content">
+            <h2 class="hero-name">D3 Interaction</h2>
+            <p class="hero-intro">
+              This page shows an interactive D3 canvas. Clicking anywhere inside the canvas adds a new circle at the exact clicked position. A maximum of 10 circles can appear at one time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band-light" aria-label="D3 interactive canvas">
+        <div class="container">
+          <section class="split-card" aria-labelledby="d3-title">
+            <div class="split-body" style="grid-column: 1 / -1;">
+              <h2 id="d3-title">Click to Add Circles</h2>
+              <p>
+                Each click adds one new circle. When more than 10 circles are added, the oldest circle is removed.
+              </p>
+
+              <div class="viz-frame" style="margin-top: 1rem;">
+                <svg
+                  id="chart"
+                  viewBox="0 0 800 600"
+                  role="img"
+                  aria-label="Interactive D3 canvas where clicking adds circles"
+                  style="width: 100%; height: auto; display: block; background: white;"
+                ></svg>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <button id="back-to-top" type="button" aria-label="Back to top">↑ Top</button>
+
+    <script type="module" src="d3-vis.js"></script>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Vuth Sethi</p>
+      </div>
+    </footer>
+  </body>
+</html>
